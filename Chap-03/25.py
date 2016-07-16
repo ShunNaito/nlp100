@@ -2,7 +2,7 @@
 import json
 import re
 
-r = re.compile(u'\{基礎情報(.*?)\}')
+r = re.compile(u'\|(.*)\s=\s(.*)')
 
 f = open('jawiki-country.json', 'r')
 lines = f.readlines()
@@ -13,11 +13,9 @@ for line in lines:
     if article_dict["title"] == u"イギリス":
         England_text = article_dict["text"]
 
-lines = England_text.replace("\n", "")
+lines = England_text.split("\n")
 
-# print lines.encode('utf_8')
-
-m = r.search(lines)
-
-if m is not None:
-    print m.group(1).encode('utf_8')
+for line in lines:
+    m = r.search(line)
+    if m is not None:
+        print m.group(1).encode('utf_8'), m.group(2).encode('utf_8')
