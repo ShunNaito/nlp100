@@ -15,10 +15,18 @@ for line in lines:
 
 lines = England_text.split("\n")
 
+basicInformationDict = {}
+
 for line in lines:
     m = r.search(line)
     if m is not None:
         if m.group(3) is not None:
-            print m.group(3).encode('utf_8')
+            tmp = (basicInformationDict.keys()
+                   [len(basicInformationDict.keys()) - 1])
+            basicInformationDict[tmp] += m.group(3)
         else:
-            print m.group(1).encode('utf_8'), m.group(2).encode('utf_8')
+            basicInformationDict[m.group(1)] = m.group(2)
+
+# 辞書のitems()メソッドで全てのキー(key), 値(value)をたどる
+for k, v in basicInformationDict.items():   # for/if文では文末のコロン「:」を忘れないように
+    print k.encode('utf_8'), v.encode('utf_8')
