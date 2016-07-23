@@ -3,7 +3,7 @@ import json
 import re
 
 
-def func(m):
+def remove_internal_link(m):
     m2 = r2.search(m.group().encode('utf_8'))
     if m2.group(3) is not None:
         extracted_string = m2.group(3)
@@ -31,13 +31,16 @@ for line in lines:
     m = r.search(line)
     if m is not None:
         if m.group(3) is not None:
-            tmp = (basicInformationDict.keys()
-                   [len(basicInformationDict.keys()) - 1])
-            basicInformationDict[tmp] += m.group(3)
+            officialCountry = (basicInformationDict.keys()
+                               [len(basicInformationDict.keys()) - 1])
+            basicInformationDict[officialCountry] += m.group(3)
         else:
             text = m.group(2).replace("'", "")
-            extracted_text = re.sub(u'(\[\[(.+?)\]\])+', func, text)
-            basicInformationDict[m.group(1)] = extracted_text
+            str_internal_link_removed = re.sub(
+                u'(\[\[(.+?)\]\])+', remove_internal_link, text)
+            str_HTML_tags_removed = re.sub(
+                u'(\<(.+?)\>)+', "", str_internal_link_removed)
+            basicInformationDict[m.group(1)] = str_HTML_tags_removed
 
 # 辞書のitems()メソッドで全てのキー(key), 値(value)をたどる
 # for/if文では文末のコロン「:」を忘れないように
