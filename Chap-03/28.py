@@ -40,7 +40,9 @@ for line in lines:
                 u'(\[\[(.+?)\]\])+', remove_internal_link, text)
             str_HTML_tags_removed = re.sub(
                 u'(\<(.+?)\>)+', "", str_internal_link_removed)
-            basicInformationDict[m.group(1)] = str_HTML_tags_removed
+            str_external_link_removed = re.sub(
+                u'(\[(.+?)\])+', "", str_HTML_tags_removed)
+            basicInformationDict[m.group(1)] = str_external_link_removed
 
 # 辞書のitems()メソッドで全てのキー(key), 値(value)をたどる
 # for/if文では文末のコロン「:」を忘れないように
