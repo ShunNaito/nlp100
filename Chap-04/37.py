@@ -2,7 +2,6 @@
 
 from collections import Counter
 import MeCab
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
@@ -48,5 +47,5 @@ for word, cnt in counts.most_common(10):
 
 fp = FontProperties(fname='/Users/naitoushun/Library/Fonts/ipag.ttf')
 plt.bar(X, Y, align="center")
-plt.xticks(X, word_list_10, fontproperties = fp)
+plt.xticks(X, word_list_10, fontproperties=fp)
 plt.show()
