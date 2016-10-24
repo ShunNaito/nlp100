@@ -37,9 +37,19 @@ for sentence in morpheme_set:
 counts = Counter(word_list)
 
 X = []
+Y = []
+cnt_word_dict = {}
+initial_cnt = 0
 
 for word, cnt in counts.most_common():
-    X.append(cnt)
+    if(initial_cnt != cnt):
+        initial_cnt = cnt
+        cnt_word_dict[cnt] = []
+    cnt_word_dict[cnt].append(word)
 
-plt.hist(X, bins=1000)
+for key, value in sorted(cnt_word_dict.items()):
+    X.append(len(value))
+    Y.append(key)
+
+plt.bar(X, Y, align="center")
 plt.show()
